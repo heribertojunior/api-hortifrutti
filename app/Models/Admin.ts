@@ -12,5 +12,5 @@ export default class Admin extends BaseModel {
   public nome: string
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
+  public updateAt: DateTime
 }
