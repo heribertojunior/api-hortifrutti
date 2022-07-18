@@ -1,13 +1,11 @@
 import { BaseModel, column, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
 import Cidade from './Cidade'
 
-export default class Endereco extends BaseModel {
+export default class PedidoEndereco extends BaseModel {
   @column({ isPrimary: true })
   public id: number
-  @column()
-  public clienteId: number
-  
-  @column()
+
+ @column()
   public cidadeId: number
 
   @column()
@@ -30,7 +28,4 @@ export default class Endereco extends BaseModel {
     foreignKey: "id",
   })
   public cidade: HasOne<typeof Cidade>;
-
-
-
 }
