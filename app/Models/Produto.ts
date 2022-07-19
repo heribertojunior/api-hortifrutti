@@ -6,7 +6,7 @@ export default class Produto extends BaseModel {
   public id: number
 
   @column()
-  public name: string
+  public nome: string
 
    @column()
   public descricao: string | null
@@ -24,7 +24,7 @@ export default class Produto extends BaseModel {
   public preco: number
 
   @column()
-  public unidade: number
+  public unidade: string
 
   @column()
   public categoria_id: number

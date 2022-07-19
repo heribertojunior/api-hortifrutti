@@ -12,6 +12,33 @@ export default class extends BaseSeeder {
         posicao: 1,
         estabelecimento_id: iEst,
       });
+      await Produto.createMany([{
+        nome: faker.commerce.productName(),
+        descricao: faker.lorem.sentence(),
+        imagem: faker.image.food(300, 300),
+        preco: faker.datatype.number({min: 5, max: 100, precision: 0.5}),
+        categoria_id: categoria.id,
+        posicao: 1,
+        unidade: "KG",
+      },{
+        nome: faker.commerce.productName(),
+        descricao: faker.lorem.sentence(),
+        imagem: faker.image.food(300, 300),
+        preco: faker.datatype.number({min: 5, max: 100, precision: 0.5}),
+        categoria_id: categoria.id,
+        posicao: 1,
+        unidade: "KG",
+      },{
+        nome: faker.commerce.productName(),
+        descricao: faker.lorem.sentence(),
+        imagem: faker.image.food(300, 300),
+        preco: faker.datatype.number({min: 5, max: 100, precision: 0.5}),
+        categoria_id: categoria.id,
+        posicao: 1,
+        unidade: "KG",
+      },
+
+      ])
     }
   }
 }

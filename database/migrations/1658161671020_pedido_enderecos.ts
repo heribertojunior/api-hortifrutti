@@ -12,7 +12,6 @@ export default class extends BaseSchema {
       table.string("bairro").notNullable();
       table.string("ponto_referencia").nullable();
       table.string("complemento").nullable();
-      table.string('status',50).notNullable();
     })
   }
 

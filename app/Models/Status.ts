@@ -5,6 +5,6 @@ export default class Status extends BaseModel {
   public id: number
 
   @column()
-  public nome: string
+  public status: string
 
 }

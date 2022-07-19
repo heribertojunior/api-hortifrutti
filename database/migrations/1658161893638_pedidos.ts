@@ -8,7 +8,7 @@ export default class extends BaseSchema {
       table.increments('id').primary();
       table.string("hash_id").unique().notNullable()
       table.integer('cliente_id').unsigned().notNullable().references('id').inTable('clientes');
-      table.integer('estabelecimento_id').unsigned().notNullable().references('id').inTable('estabelecimento');
+      table.integer('estabelecimento_id').unsigned().notNullable().references('id').inTable('estabelecimentos');
       table.integer('meio_pagamento_id').unsigned().notNullable().references('id').inTable('meios_pagamentos');
       table.integer('pedido_endereco_id').unsigned().notNullable().references('id').inTable('pedido_enderecos');
       table.decimal('valor', 10 ,2).notNullable();

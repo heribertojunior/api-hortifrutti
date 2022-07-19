@@ -39,15 +39,18 @@ export default class PedidosController {
         complemento: endereco.complemento,
       });
       //busca do custo de entrega e calculo do total
-      const estabCidade = await CidadesEstabelecimento.query().where("estabelecimento_id", payload.endereco_id)
-      .where("cidade_id", endereco.cidadeId).firstOrFail();
+      const estabCidade = await CidadesEstabelecimento.query()
+      .where("estabelecimento_id", payload.estabelecimento_id)
+      .where("cidade_id", endereco.cidadeId).first();
 
       let valorTotal = 0;
       for await (const produto of payload.produtos){
         const prod =await Produto.findByOrFail("id",produto.produto_id);
         valorTotal += produto.quantidade * prod.preco;
       }
-      valorTotal = valorTotal + estabCidade.custo_entrega;
+      valorTotal = estabCidade
+        ? valorTotal + estabCidade.custo_entrega
+        : valorTotal;
       valorTotal = parseFloat(valorTotal.toFixed(2));
       if(payload.troco_para != null && payload.troco_para < valorTotal){
         trx.rollback()
@@ -61,7 +64,7 @@ export default class PedidosController {
         pedido_endereco_id: end.id,
         valor: valorTotal,
         troco_para: payload.troco_para,
-        custo_entrega: estabCidade.custo_entrega,
+        custo_entrega: estabCidade ? estabCidade.custo_entrega : 0,
         observacao: payload.observacao,
       });
       payload.produtos.forEach(async (produto) => {
@@ -80,7 +83,7 @@ export default class PedidosController {
       return response.ok(pedido);
     } catch (error) {
       await trx.rollback();
-      return response.badRequest("Something in the request is wrong");
+      return response.badRequest("Something in the request is wrong "+error);
     }
   }//fim do Store Pedido
 
@@ -93,7 +96,7 @@ export default class PedidosController {
       .preload("pedido_status",(statusQuery) => {
         statusQuery.preload("status");
       })
-      .orderBy("pedido_id", "desc");
+      .orderBy("id", "desc");
 
     return response.ok(pedidos);
   }// fim do index
