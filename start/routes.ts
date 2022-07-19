@@ -12,6 +12,9 @@ Route.get("/estabelecimentos/:id", "EstabelecimentosController.show");
 Route.group(()=>{
   Route.get("auth/me", "AuthController.me");
   Route.resource("/enderecos","EnderecosController").only(["store","update","index","destroy"]);
+  Route.post("/pedidos","PedidosController.store");
+  Route.get("/pedidos","PedidosController.index");
+  Route.get("/pedidos/:hash_id","PedidosController.show");
   Route.get("/estabelecimento/pedidos", "EstabelecimentosController.pedidos");
   Route.put("/cliente", "ClientesController.update");
 }).middleware("auth");
